@@ -67,7 +67,7 @@ static unsigned long long du(int dirfd, const char *path, dev_t dev, unsigned lo
 				|| (e->d_name[1] && (e->d_name[1] != '.' || e->d_name[2])))
 				&& strcmp(e->d_name, "lost+found") != 0) {
 
-			if (xlog && !strncmp(e->d_name, pg_xlog, sizeof(pg_xlog))) {
+			if (xlog && strcmp(e->d_name, pg_xlog) == 0) {
 				*xlog = du(dirfd, e->d_name, 0, NULL);
 				if (fstatat(dirfd, e->d_name, &st, AT_SYMLINK_NOFOLLOW) == 0) {
 					if ((st.st_mode & S_IFMT) == S_IFDIR)
